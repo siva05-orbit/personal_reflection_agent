@@ -22,5 +22,5 @@ async def run_reflection_node(state:ReflectionInputState):
 
     except Exception as e:
         logger.error(f"Reflection agent failed: {e}")
-        raise
+        return safe_fallback_response(state.support_tone)
 

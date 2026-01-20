@@ -1,27 +1,24 @@
 from source.agent.agent import EmotionalReflectionResult
 
-def safe_fallback_response(tone: str, user_text: str) -> EmotionalReflectionResult:
+def safe_fallback_response(support_tone: str) -> EmotionalReflectionResult:
     return EmotionalReflectionResult(
         emotional_summary=(
-            "Based on the experience described, the user appears to be reflecting on a situation that caused "
-            "emotional discomfort and internal tension. The event seems to have had a lingering emotional impact, "
-            "leading the user to replay the situation and question their own reactions. There is a sense of regret "
-            "and emotional heaviness, suggesting that the interaction or experience mattered deeply to them. "
-            "This response reflects an effort to process the situation and understand its emotional significance."
+            "I’m having difficulty clearly understanding what you’re trying to express right now. "
+            "Your message seems to contain something important, but the situation or emotions behind it "
+            "aren’t coming through in a way I can confidently reflect back. This can happen when thoughts "
+            "are still forming or when an experience feels hard to put into words."
         ),
-        detected_emotions=["stress", "self-doubt"],
-        emotional_intensity="medium",
-        key_stressors=["emotionally difficult interaction"],
-        cognitive_patterns=["rumination"],
+        detected_emotions=["uncertainty", "confusion"],
+        emotional_intensity="low",
+        key_stressors=["unclear or incomplete expression"],
+        cognitive_patterns=["difficulty articulating thoughts"],
         reflection_questions=[
-            "What part of the situation is staying with you the most?",
-            "What emotions came up for you during or after this experience?"
+            "Would you like to share more details about what happened?",
+            "What part of the situation feels hardest to explain right now?"
         ],
         grounding_suggestions=[
-            "Take a pause and reflect on how the situation made you feel emotionally.",
-            "Allow yourself some time before revisiting the situation again."
+            "Take a moment to pause and collect your thoughts before continuing.",
+            "Try describing one specific moment or feeling from the experience."
         ],
-        support_tone=tone,
-        confidence_score=0.6,
-        safety_note="This reflection is not medical or therapeutic advice."
+        support_tone=support_tone
     )
