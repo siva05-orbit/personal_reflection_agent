@@ -1,7 +1,11 @@
 import gradio as gr
 import requests
+import os
 
-API_URL = "/api/reflect"  
+API_URL = os.getenv(
+    "API_URL",
+    "http://127.0.0.1:8000/reflect" 
+)  
 
 
 def reflect_ui(user_text, support_tone, focus_mode):
