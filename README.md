@@ -1,120 +1,132 @@
 Personal Reflection Agent
 
-A full-stack generative AI application that helps users reflect on emotionally difficult experiences by transforming free-form personal input into a structured emotional reflection.
+A full-stack generative AI application designed to help users reflect on emotionally significant experiences in a structured, grounded, and non-judgmental manner.
 
-Built using Pydantic AI, with strict schema validation, fallback handling, and a polished end-to-end user experience.
+The system analyzes a user’s personal narrative and returns a validated, structured reflection including emotional context, stressors, cognitive patterns, reflection questions, and grounding suggestions. The application does not provide therapy, diagnosis, or medical advice.
 
-🔍 What This Project Does
+Project Motivation
 
-The Personal Reflection Agent allows users to describe a personal situation or experience they found emotionally challenging.
-The system analyzes the input and returns a structured reflective response that is grounded strictly in the user’s story.
+People often struggle to clearly understand their emotional state after difficult experiences such as workplace conflicts, relationship issues, or moments of self-doubt. This project explores how a structured AI agent can support personal reflection by accurately restating a user’s experience and highlighting emotional and cognitive signals present in their narrative.
 
-Each response includes:
+Live Deployment
 
-A detailed emotional summary
+Live application URL:
+https://personal-reflection-agent.onrender.com
 
-Detected emotions and emotional intensity
-
-Key stressors involved in the situation
-
-Cognitive patterns (e.g., rumination, self-doubt)
-
-Reflection questions for self-awareness
-
-Grounding suggestions appropriate to the situation
-
-⚠️ This application is designed for reflection and emotional awareness, not therapy, diagnosis, or medical advice.
-
-🧭 User Flow
-
-User enters a description of a personal experience
-
-User selects:
-
-Support tone (gentle / neutral / direct)
-
-Focus mode (emotion / thought / action)
-
-The AI agent processes the input
-
-A structured emotional reflection is returned in real time
-
-🏗️ Technical Architecture
+Technology Stack
 Backend
 
-FastAPI – API layer and request handling
+FastAPI for API development
 
-Pydantic AI – Agent orchestration and LLM interaction
+Pydantic AI for agent orchestration and strict output validation
 
-Pydantic models – Strict output schema validation
+Pydantic v2 for request and response schemas
 
-Fallback handling – Ensures a safe, schema-valid response when input is unclear or the model fails
-
-Retry & validation controls – Improves reliability and stability
+OpenRouter (OpenAI-compatible API) for language model access
 
 Frontend
 
-Gradio – Simple and responsive UI for user interaction
+Gradio for interactive user interface
 
-Model Access
+Infrastructure
 
-Uses OpenRouter via an OpenAI-compatible API for LLM access
+Render for cloud deployment
 
-🛡️ Validation & Reliability
+GitHub for version control
 
-All AI outputs must conform to a predefined Pydantic schema
+Environment variables for secure configuration
 
-Minimum structure and content constraints are enforced
+Core Features
 
-If the model output fails validation or the input is unclear, a fallback response is returned
+Structured emotional reflection based on real user input
 
-This prevents crashes, retry loops, and invalid responses
+Context-aware emotional summaries grounded in the user’s experience
 
-🌐 Live Deployment
+Detection of emotions, stressors, and cognitive patterns
 
-🔗 Live App:
-https://personal-reflection-agent.onrender.com
+Reflection questions aligned with the situation described
 
-Note: On Render Free tier, the app may take ~30–50 seconds to wake up after inactivity.
+Grounding suggestions appropriate to the user’s context
 
-📂 Repository Structure
-personal_reflection_agent/
-├── app.py              # FastAPI backend
-├── main.py             # ASGI entrypoint (Render)
-├── gradio_app.py       # Gradio UI
-├── requirements.txt
-├── source/
-│   ├── agent/
-│   ├── graph/
-│   ├── nodes/
-│   ├── schema/
-│   ├── state/
-│   └── utils/
+Configurable support tone and focus mode
 
-▶️ Run Locally
-1️⃣ Clone the repository
+Strict schema validation using Pydantic AI
+
+Retry handling and safe fallbacks for model reliability
+
+Application Flow
+
+User submits a personal experience via the UI
+
+Optional parameters allow customization of tone and focus
+
+Request is processed by a Pydantic AI agent
+
+Agent generates a validated structured response
+
+Frontend displays the reflection results to the user
+
+API Specification
+Endpoint
+
+POST /reflect
+
+Request Body
+{
+  "user_text": "I had a stressful meeting at work...",
+  "support_tone": "gentle",
+  "focus_mode": "thought"
+}
+
+Response Body
+{
+  "success": true,
+  "data": {
+    "emotional_summary": "...",
+    "detected_emotions": ["stress", "self-doubt"],
+    "emotional_intensity": "medium",
+    "key_stressors": ["workplace feedback"],
+    "cognitive_patterns": ["rumination"],
+    "reflection_questions": [...],
+    "grounding_suggestions": [...],
+    "support_tone": "gentle"
+  }
+}
+
+Local Development Setup
+Clone the Repository
 git clone https://github.com/siva05-orbit/personal_reflection_agent.git
 cd personal_reflection_agent
 
-2️⃣ Create and activate virtual environment
+Create Virtual Environment
 python -m venv .venv
-source .venv/bin/activate   # macOS / Linux
-.venv\Scripts\activate      # Windows
+source .venv/bin/activate
 
-3️⃣ Install dependencies
+
+Windows:
+
+.venv\Scripts\activate
+
+Install Dependencies
 pip install -r requirements.txt
 
-4️⃣ Set environment variables
-
-Create a .env file:
-
-OPENAI_API_KEY=your_api_key_here
+Create Environment File
+OPENAI_API_KEY=your_openrouter_key
 OPENAI_BASE_URL=https://openrouter.ai/api/v1
+API_URL=http://127.0.0.1:8000/reflect
 
-5️⃣ Run the app
-uvicorn main:app --host 127.0.0.1 --port 8000
+Run Backend
+uvicorn app:app --reload
 
+Run Frontend
+python gradio_app.py
 
-Open:
+Deployment
 
-http://127.0.0.1:8000
+The application is deployed on Render as a web service
+
+Environment variables are configured through the Render dashboard
+
+No secrets or configuration values are committed to GitHub
+
+Automatic redeployment occurs on every push to the main branch
