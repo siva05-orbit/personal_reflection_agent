@@ -1,7 +1,7 @@
 import gradio as gr
 import requests
 
-API_URL = "http://127.0.0.1:8000/reflect"  # change to deployed URL later
+API_URL = "/api/reflect"  
 
 
 def reflect_ui(user_text, support_tone, focus_mode):
@@ -38,7 +38,7 @@ def reflect_ui(user_text, support_tone, focus_mode):
 
 
 with gr.Blocks(title="Personal Reflection Agent") as demo:
-    gr.Markdown("## 🧠 Personal Reflection Agent")
+    gr.Markdown("##  Personal Reflection Agent")
     gr.Markdown(
         "Share a situation or experience that affected you emotionally. "
         "The agent will reflect your experience back in a grounded and structured way."
@@ -65,16 +65,16 @@ with gr.Blocks(title="Personal Reflection Agent") as demo:
 
     submit_btn = gr.Button("Reflect")
 
-    gr.Markdown("### 📝 Emotional Summary")
+    gr.Markdown("###  Emotional Summary")
     summary_out = gr.Textbox(lines=6, interactive=False)
 
-    gr.Markdown("### ❤️ Detected Emotions")
+    gr.Markdown("###  Detected Emotions")
     emotions_out = gr.Textbox(interactive=False)
 
-    gr.Markdown("### ❓ Reflection Questions")
+    gr.Markdown("###  Reflection Questions")
     questions_out = gr.Textbox(lines=4, interactive=False)
 
-    gr.Markdown("### 🌱 Grounding Suggestions")
+    gr.Markdown("###  Grounding Suggestions")
     grounding_out = gr.Textbox(lines=4, interactive=False)
 
     submit_btn.click(
